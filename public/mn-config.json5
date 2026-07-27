@@ -1,0 +1,25 @@
+/**
+ * Central configuration for mn-angular-lib.
+ *
+ * - "settings": app-level metadata.
+ * - "defaults": fallback config per library component, used when no section or
+ *   instance override applies.
+ * - "overrides": route/section-scoped overrides (empty for now).
+ *
+ * This file is loaded at startup by provideMnConfig('mn-config.json5', false)
+ * over HttpClient from the public/ folder. It is JSON5, so comments, single
+ * quotes, and trailing commas are allowed.
+ */
+{
+  settings: {
+    name: 'website-tigo',
+    version: '1.0.0',
+  },
+  defaults: {
+    'mn-input-field': {
+      placeholder: 'Enter text here...',
+      label: 'Input field',
+    },
+  },
+  overrides: {},
+}

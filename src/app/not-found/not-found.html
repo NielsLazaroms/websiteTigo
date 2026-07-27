@@ -1,0 +1,67 @@
+<section class="page">
+  <header class="masthead">
+    <a class="wordmark" routerLink="/" data-rise="head">
+      <img class="wordmark__logo" src="logo_text.png" alt="Tigo Rutten Schilderwerken" />
+    </a>
+  </header>
+
+  <main class="hero">
+    <p class="eyebrow" data-rise="head">Fout 404 — pagina nog niet geschilderd</p>
+
+    <div class="four04-wrap">
+      <div class="four04" role="img" aria-label="Foutcode 404">
+        <span class="four04__sizer" aria-hidden="true">404</span>
+        <span class="four04__layer four04__layer--ghost" aria-hidden="true">404</span>
+        <span class="four04__layer four04__layer--paint" aria-hidden="true">404</span>
+
+        <span class="four04__drips" aria-hidden="true">
+          <i class="four04__drip" style="left: 12%; height: 30px"></i>
+          <i class="four04__drip" style="left: 30%; height: 46px"></i>
+          <i class="four04__drip" style="left: 49%; height: 72px"></i>
+          <i class="four04__drip" style="left: 68%; height: 40px"></i>
+          <i class="four04__drip" style="left: 92%; height: 28px"></i>
+        </span>
+
+        <span class="four04__roller" aria-hidden="true">
+          <span class="four04__sleeve"></span>
+          <span class="four04__frame"></span>
+          <span class="four04__grip"></span>
+        </span>
+      </div>
+    </div>
+
+    <h1 class="headline" data-rise="body">
+      Deze pagina krijgt<br />
+      nog een <span class="headline__accent">verflaag</span>.
+    </h1>
+
+    <p class="lede" data-rise="body">
+      We zijn achter de schermen nog volop aan het schilderen. Kom binnenkort terug,
+      dan staat alles hier strak in de lak.
+    </p>
+
+    <div class="actions" data-rise="body">
+      <a class="ghost-link" (click)="werk.scrollIntoView({ behavior: 'smooth' })" tabindex="0"
+        (keydown.enter)="werk.scrollIntoView({ behavior: 'smooth' })">
+        Bekijk recent werk
+        <span class="ghost-link__arrow" aria-hidden="true">↓</span>
+      </a>
+    </div>
+  </main>
+
+  <section class="strip" #werk aria-label="Recent werk van Tigo Rutten Schilderwerken">
+    <div class="strip__head">
+      <span class="strip__label">Recent werk</span>
+      <span class="strip__meta">wat er wél al af is</span>
+    </div>
+    <div class="strip__viewport">
+      <ul class="strip__track">
+        @for (shot of strip; track $index) {
+          <li class="card">
+            <img class="card__img" [src]="shot.src" [alt]="shot.alt" loading="lazy" />
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+</section>

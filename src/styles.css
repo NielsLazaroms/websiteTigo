@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+
+/* Let Tailwind scan mn-angular-lib's compiled templates so the utility classes
+   its components rely on are generated into the final stylesheet. */
+@source '../node_modules/mn-angular-lib';
+
+@theme {
+  /* --- Jobsite palette, pulled straight off Tigo's work ---------------------
+     plaster : raw un-painted wall (page base)
+     signal  : the brand red from the TR brush logo (the "fresh coat")
+     tape    : painter's masking-tape ochre
+     ink     : the anthracite the doors get painted
+     primer  : clean painter's white                                          */
+  --color-plaster: #e8e1d3;
+  --color-plaster-deep: #dcd3c1;
+  --color-signal: #e0362a;
+  --color-signal-deep: #c22a20;
+  --color-tape: #e9a400;
+  --color-ink: #212429;
+  --color-ink-soft: #2c3037;
+  --color-primer: #f7f4ec;
+
+  /* mn-angular-lib styles its components with `primary-*` tokens (default
+     purple). Alias them to the brand red so its button/badge render on-brand. */
+  --color-primary: var(--color-signal);
+  --color-primary-50: #fbeae8;
+  --color-primary-100: #f6cdc9;
+  --color-primary-200: #eea59d;
+  --color-primary-300: #e77d72;
+  --color-primary-400: #e35a4c;
+  --color-primary-500: var(--color-signal);
+  --color-primary-600: var(--color-signal-deep);
+  --color-primary-700: #a3241b;
+  --color-primary-800: #831d16;
+  --color-primary-900: #631610;
+  --color-primary-content: var(--color-primer);
+
+  --color-base-100: var(--color-primer);
+  --color-base-content: var(--color-ink);
+
+  --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-plaster);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
