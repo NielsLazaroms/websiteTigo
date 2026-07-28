@@ -1,7 +1,11 @@
 <section class="page">
   <header class="masthead">
-    <a class="wordmark" routerLink="/" data-rise="head">
-      <img class="wordmark__logo" src="logo_text.png" alt="Tigo Rutten Schilderwerken" />
+    <a class="wordmark" routerLink="/" data-rise="head" aria-label="Tigo Rutten Schilderwerken">
+      <img class="wordmark__mark" src="logo.png" alt="" />
+      <span class="wordmark__name">
+        <span class="wordmark__title">Tigo Rutten</span>
+        <span class="wordmark__sub">Schilderwerken</span>
+      </span>
     </a>
   </header>
 
@@ -15,16 +19,18 @@
         <span class="four04__layer four04__layer--paint" aria-hidden="true">404</span>
 
         <span class="four04__drips" aria-hidden="true">
-          <i class="four04__drip" style="left: 12%; height: 30px"></i>
-          <i class="four04__drip" style="left: 30%; height: 46px"></i>
-          <i class="four04__drip" style="left: 49%; height: 72px"></i>
-          <i class="four04__drip" style="left: 68%; height: 40px"></i>
-          <i class="four04__drip" style="left: 92%; height: 28px"></i>
+          <!-- Anchored to real stroke bottoms: paired rivulets off the first 4-stem, hero drip off the 0, one off the second 4-stem. -->
+          <i class="four04__drip" style="left: 8%; --drip-h: 0.08em; --rise: 0.010em"></i>
+          <i class="four04__drip" style="left: 30.2%; --drip-h: 0.1em; --rise: 0.010em"></i>
+          <i class="four04__drip" style="left: 50%; --drip-h: 0.11em; --rise: 0.435em"></i>
+          <i class="four04__drip" style="left: 79%; --drip-h: 0.08em; --rise: 0.010em"></i>
         </span>
 
         <span class="four04__roller" aria-hidden="true">
           <span class="four04__sleeve"></span>
-          <span class="four04__frame"></span>
+          <span class="four04__cap four04__cap--top"></span>
+          <span class="four04__arm"></span>
+          <span class="four04__knuckle"></span>
           <span class="four04__grip"></span>
         </span>
       </div>
