@@ -31,7 +31,6 @@ export class NotFound {
     { src: 'work/trap-behang-portret.jpeg', alt: 'Trappenhuis met botanisch behang', caption: 'Trappenhuis · behang' },
     { src: 'work/voordeur-blauw.jpeg', alt: 'Blauwe voordeur in hoogglans', caption: 'Voordeur · hoogglans' },
     { src: 'work/dubbele-deur-antraciet.jpeg', alt: 'Antraciet openslaande deuren', caption: 'Deuren · buitenlak' },
-    { src: 'work/schilder-groen-insnijden.jpeg', alt: 'Wand insnijden in het groen', caption: 'Wanden · insnijden' },
     { src: 'work/schuurdeuren-groen.jpeg', alt: 'Groene schuurdeuren in hoogglans', caption: 'Schuurdeuren · lak' },
     { src: 'work/serre-wit-na.jpeg', alt: 'Serre binnenwerk in het wit afgelakt', caption: 'Serre · binnenwerk' },
     { src: 'work/trap-grijs.jpeg', alt: 'Open trap strak grijs gelakt', caption: 'Trap · gelakt' },
