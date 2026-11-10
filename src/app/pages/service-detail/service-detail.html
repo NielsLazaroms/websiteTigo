@@ -1,0 +1,121 @@
+<section class="page-head">
+  <div class="wrap detail-head">
+    <div class="page-head__inner">
+      <nav aria-label="Kruimelpad">
+        <ol class="crumbs">
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/diensten">Onze diensten</a></li>
+          <li aria-current="page">{{ service.name }}</li>
+        </ol>
+      </nav>
+      <h1>{{ service.name }}</h1>
+      <p class="lede">{{ service.lede }}</p>
+      <div class="btn-row">
+        <a class="btn" routerLink="/contact">Offerte aanvragen</a>
+        <a class="btn btn--line" [routerLink]="['/diensten', service.slug]" fragment="wat">Wat we doen</a>
+      </div>
+    </div>
+    <figure class="photo detail-head__photo">
+      <img [appPhoto]="service.photos[0]" sizes="(max-width: 860px) 92vw, 38vw" fetchpriority="high" />
+    </figure>
+  </div>
+</section>
+
+<section id="wat" class="band band--soft" aria-labelledby="wat-titel">
+  <div class="wrap split split--flip">
+    <div>
+      <h2 id="wat-titel" appReveal>Wat we doen</h2>
+      <dl class="rows">
+        @for (item of service.items; track item.title) {
+          <div appReveal [revealIndex]="$index">
+            <dt>{{ item.title }}</dt>
+            <dd>{{ item.text }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+    <figure class="photo split__photo" appReveal="wipe">
+      <img [appPhoto]="service.photos[1]" sizes="(max-width: 860px) 92vw, 36vw" loading="lazy" />
+    </figure>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="voor-na">
+  <div class="wrap proof">
+    <div class="proof__text" appReveal>
+      <p class="proof__kicker">Voor en na</p>
+      <h2 id="voor-na">{{ example.title }}</h2>
+      <p class="lede">{{ example.text }}</p>
+      <p>Sleep over de foto om de beginsituatie met het resultaat te vergelijken.</p>
+      <a class="btn btn--line" routerLink="/projecten">Meer projecten</a>
+    </div>
+    <div class="proof__slider" [class.proof__slider--wide]="exampleIsWide" appReveal [revealIndex]="1">
+      <app-compare
+        sizes="(max-width: 860px) calc(100vw - 2.5rem), 46vw"
+        [before]="example.stages[0].photo"
+        [after]="example.stages[example.stages.length - 1].photo"
+      />
+    </div>
+  </div>
+</section>
+
+<section class="band band--soft" aria-labelledby="hoe">
+  <div class="wrap">
+    <div class="head" appReveal>
+      <h2 id="hoe">Zo gaan we te werk</h2>
+    </div>
+    <ol class="steps">
+      @for (step of service.steps; track step.title) {
+        <li appReveal [revealIndex]="$index">
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.text }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="vragen">
+  <div class="wrap questions">
+    <div class="questions__head" appReveal>
+      <h2 id="vragen">Veelgestelde vragen</h2>
+      <p>Staat je vraag er niet bij? <a class="more" routerLink="/contact">Stel hem via het formulier</a>.</p>
+    </div>
+    <div class="faq" appReveal [revealIndex]="1">
+      @for (faq of service.faqs; track faq.question) {
+        <details>
+          <summary>{{ faq.question }}</summary>
+          <p>{{ faq.answer }}</p>
+        </details>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="band band--soft" aria-labelledby="ook">
+  <div class="wrap">
+    <div class="head" appReveal>
+      <h2 id="ook">Ook in één klus mee te nemen</h2>
+    </div>
+    <ul class="others">
+      @for (other of others; track other.slug) {
+        <li appReveal [revealIndex]="$index">
+          <a class="other" [routerLink]="['/diensten', other.slug]">
+            <span class="photo other__photo">
+              <img [appPhoto]="other.photos[0]" [decorative]="true" sizes="12rem" loading="lazy" />
+            </span>
+            <span class="other__text">
+              <span class="other__name">{{ other.name }}</span>
+              <span>{{ other.short }}</span>
+            </span>
+            <span class="other__go" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<app-cta-band />

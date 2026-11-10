@@ -1,0 +1,115 @@
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <h1>
+        Strak schilderwerk, binnen en buiten
+        <svg class="hero__stroke" viewBox="0 0 300 18" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M2 11C40 4 92 5 150 8s110-5 148 1c-30 4-96 5-148 6S46 17 2 11Z" />
+        </svg>
+      </h1>
+      <p class="lede">
+        Tigo Rutten Schilderwerken schildert, behangt en zet
+        glas{{ site.region ? ' in ' + site.region : '' }}. Eén vakman van de eerste opname tot de
+        oplevering.
+      </p>
+      <div class="btn-row">
+        <a class="btn" routerLink="/contact">Offerte aanvragen</a>
+        <a class="btn btn--line" routerLink="/projecten">Bekijk projecten</a>
+      </div>
+    </div>
+
+    <div class="hero__photos">
+      <figure class="photo hero__main">
+        <img [appPhoto]="hero" sizes="(max-width: 900px) 84vw, 52vw" fetchpriority="high" />
+      </figure>
+      <figure class="photo hero__inset">
+        <img [appPhoto]="inset" sizes="(max-width: 900px) 32vw, 18vw" />
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="home-diensten">
+  <div class="wrap">
+    <div class="head" appReveal>
+      <h2 id="home-diensten">Onze diensten</h2>
+      <p>
+        Verf, behang en glas raken elkaar op bijna elke klus. Bij ons hoef je er geen drie partijen
+        voor te bellen.
+      </p>
+    </div>
+    <ul class="service-cards">
+      @for (service of services; track service.slug) {
+        <li appReveal [revealIndex]="$index">
+          <a class="service-card" [routerLink]="['/diensten', service.slug]">
+            <span class="photo">
+              <img
+                [appPhoto]="service.photos[0]" sizes="(max-width: 640px) 38vw, 30vw"
+                loading="lazy"
+              />
+            </span>
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.short }}</p>
+            <span class="more">Meer over {{ service.name.toLowerCase() }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="band band--soft" aria-labelledby="home-voor-na">
+  <div class="wrap before-after">
+    <div class="before-after__slider" appReveal>
+      <app-compare [before]="featured.stages[0].photo" [after]="featured.stages[featured.stages.length - 1].photo" />
+    </div>
+    <div class="before-after__text" appReveal [revealIndex]="1">
+      <h2 id="home-voor-na">Voor en na</h2>
+      <p class="lede">
+        Sleep over de foto. Dit is een serre waarvan het hout kaal en verweerd was: geschuurd,
+        hersteld, gegrond en wit afgelakt.
+      </p>
+      <a class="btn btn--line" routerLink="/projecten">Meer voor en na</a>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="home-werk">
+  <div class="wrap">
+    <div class="head" appReveal>
+      <h2 id="home-werk">Recent opgeleverd</h2>
+      <a class="more" routerLink="/projecten">Alle projecten bekijken</a>
+    </div>
+    <ul class="mosaic">
+      @for (item of mosaic; track item.photo.src) {
+        <li [class]="'mosaic__' + item.shape" appReveal="wipe" [revealIndex]="$index">
+          <figure class="photo">
+            <img
+              [appPhoto]="item.photo" sizes="(max-width: 900px) 50vw, 40vw"
+              loading="lazy"
+            />
+            <figcaption class="photo__tag">{{ item.label }}</figcaption>
+          </figure>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="band band--soft" aria-labelledby="home-werkwijze">
+  <div class="wrap">
+    <div class="head" appReveal>
+      <h2 id="home-werkwijze">Zo loopt een klus</h2>
+    </div>
+    <ol class="steps">
+      @for (step of workflow; track step.title) {
+        <li appReveal [revealIndex]="$index">
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.text }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<app-cta-band />

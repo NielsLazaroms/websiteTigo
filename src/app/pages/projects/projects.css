@@ -1,0 +1,71 @@
+:host {
+  display: block;
+}
+
+/* ----------------------------------------------------------- voor en na -- */
+.cases {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.25rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cases li {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+}
+.cases h3 {
+  margin-top: 0.6rem;
+}
+
+/* ------------------------------------------------------------------ wall -- */
+.wall {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.25rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.wall figure {
+  margin: 0;
+}
+.wall .photo {
+  aspect-ratio: 4 / 5;
+}
+.wall figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.2rem 1rem;
+  margin-top: 0.8rem;
+}
+.wall figcaption strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+@media (max-width: 800px) {
+  .cases {
+    gap: 2rem 0.75rem;
+  }
+  .cases h3 {
+    font-size: 1.45rem;
+  }
+  .wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .cases {
+    grid-template-columns: 1fr;
+    max-width: 28rem;
+  }
+}
+@media (max-width: 480px) {
+  .wall {
+    grid-template-columns: 1fr;
+  }
+}

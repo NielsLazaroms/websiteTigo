@@ -1,0 +1,86 @@
+<section class="contact">
+  <div class="wrap">
+    <div class="page-head__inner contact__head">
+      <h1>Vertel over je klus</h1>
+      <p class="lede">
+        Beschrijf wat je wilt laten doen. We komen kijken voordat we een prijs noemen, dus je zit
+        nergens aan vast.
+      </p>
+    </div>
+
+    <div class="contact__grid">
+      <form class="form" (submit)="openMail($event)" novalidate>
+        <fieldset class="field">
+          <legend>Waar gaat het om?</legend>
+          <div class="tiles">
+            @for (service of services; track service.slug) {
+              <label class="tile">
+                <input type="radio" name="dienst" [value]="service.name" [checked]="$first" />
+                <span class="tile__photo">
+                  <img [appPhoto]="service.photos[0]" [decorative]="true" sizes="14rem" />
+                </span>
+                <span class="tile__name">{{ service.name }}</span>
+              </label>
+            }
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="bericht">Wat wil je laten doen?</label>
+          <textarea id="bericht" name="bericht" rows="6" required aria-describedby="bericht-hint"></textarea>
+          <p id="bericht-hint" class="hint">
+            Bijvoorbeeld: welke ruimtes of kozijnen, binnen of buiten, en wanneer het klaar moet zijn.
+          </p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="naam">Naam</label>
+            <input id="naam" name="naam" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="plaats">Plaats <span class="optional">(niet verplicht)</span></label>
+            <input id="plaats" name="plaats" type="text" autocomplete="address-level2" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="telefoon">Telefoon <span class="optional">(niet verplicht)</span></label>
+          <input id="telefoon" name="telefoon" type="tel" autocomplete="tel" aria-describedby="telefoon-hint" />
+          <p id="telefoon-hint" class="hint">Alleen als je liever teruggebeld wordt.</p>
+        </div>
+
+        <div class="form__send">
+          <button class="btn" type="submit">Contact</button>
+          <p class="hint">
+            Je aanvraag wordt als e-mail klaargezet in je eigen mailprogramma. Daar druk je zelf op
+            verzenden. Liever direct mailen? Dat kan naar
+            <a class="more" [href]="'mailto:' + site.email">{{ site.email }}</a>.
+          </p>
+        </div>
+      </form>
+
+      <aside class="aside">
+        <figure class="photo aside__photo">
+          <img [appPhoto]="photo" sizes="(max-width: 900px) 92vw, 32vw" />
+        </figure>
+
+        <div class="next">
+          <h2>Zo gaat het daarna</h2>
+          <ol>
+            @for (step of next; track step.title) {
+              <li>
+                <strong>{{ step.title }}</strong>
+                <span>{{ step.text }}</span>
+              </li>
+            }
+          </ol>
+        </div>
+
+        @if (site.region) {
+          <p class="aside__region">Werkgebied: {{ site.region }}</p>
+        }
+      </aside>
+    </div>
+  </div>
+</section>

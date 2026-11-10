@@ -1,0 +1,269 @@
+:host {
+  display: block;
+}
+
+/* The page is the form. It sits on the left, straight on the white page, where
+   reading starts. On the right, a photo of Tigo at work and what happens after
+   you send it stay in view while the form scrolls.                           */
+.contact {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(4rem, 8vw, 6.5rem);
+}
+.contact__head {
+  max-width: 40rem;
+  margin-bottom: clamp(2.25rem, 5vw, 3.5rem);
+}
+.contact__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  align-items: start;
+  gap: clamp(2.5rem, 7vw, 6.5rem);
+}
+
+/* ------------------------------------------------------------------ form -- */
+.form {
+  display: grid;
+  gap: 1.9rem;
+  animation: rise-in 0.8s var(--ease-out) 0.16s both;
+}
+.field {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+.field > label,
+.field legend {
+  padding: 0;
+  color: var(--color-ink);
+  font: 600 1.45rem/1.1 var(--font-display);
+}
+.optional {
+  font: 400 0.95rem var(--font-sans);
+  color: var(--color-ink-soft);
+}
+.field input[type='text'],
+.field input[type='tel'],
+.field textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 0;
+  border-radius: var(--round-field);
+  background: var(--color-soft);
+  box-shadow: inset 0 0 0 1px transparent;
+  color: var(--color-ink);
+  font: inherit;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.field input[type='text']:hover,
+.field input[type='tel']:hover,
+.field textarea:hover {
+  box-shadow: inset 0 0 0 1px #b5b5b5;
+}
+.field input[type='text']:focus-visible,
+.field input[type='tel']:focus-visible,
+.field textarea:focus-visible {
+  outline: none;
+  background: #fff;
+  box-shadow: inset 0 0 0 2px var(--color-ink);
+}
+.field textarea {
+  resize: vertical;
+}
+.hint {
+  max-width: 34rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Service picker: three photos of the work; the chosen one gets a red ring. */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 0.6rem;
+}
+.tile {
+  position: relative;
+  display: grid;
+  gap: 0.55rem;
+  cursor: pointer;
+}
+.tile input {
+  position: absolute;
+  opacity: 0;
+}
+.tile__photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--round-photo);
+  box-shadow: 0 0 0 0 var(--color-signal);
+  transition: box-shadow 0.2s var(--ease-out);
+}
+.tile__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+.tile:hover .tile__photo img {
+  transform: scale(1.05);
+}
+/* Check mark in the corner of the chosen photo. */
+.tile__photo::after {
+  content: '';
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--color-signal);
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s var(--ease-out);
+}
+.tile__photo::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 1.07rem;
+  right: 1.1rem;
+  width: 0.55rem;
+  height: 0.3rem;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  opacity: 0;
+  transform: rotate(-45deg);
+  transition: opacity 0.2s ease;
+}
+.tile input:checked + .tile__photo {
+  box-shadow: 0 0 0 3px var(--color-signal);
+}
+.tile input:checked + .tile__photo::after {
+  opacity: 1;
+  transform: none;
+}
+.tile input:checked + .tile__photo::before {
+  opacity: 1;
+}
+.tile input:focus-visible + .tile__photo {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 4px;
+}
+.tile__name {
+  color: var(--color-ink);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.form__send {
+  display: grid;
+  justify-items: start;
+  gap: 0.9rem;
+}
+.form__send .btn {
+  min-height: 3.4rem;
+  padding: 0 2.2rem;
+  font-size: 1.1rem;
+}
+
+/* ----------------------------------------------------------------- aside -- */
+.aside {
+  display: grid;
+  gap: 1.75rem;
+  position: sticky;
+  top: 6.5rem;
+  animation: rise-in 0.8s var(--ease-out) 0.24s both;
+}
+.aside__photo {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--round-panel);
+}
+.aside__photo img {
+  object-position: 50% 30%;
+}
+.next h2 {
+  font-size: clamp(1.7rem, 2.6vw, 2.1rem);
+}
+.next ol {
+  display: grid;
+  gap: 0.9rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: next;
+}
+.next li {
+  counter-increment: next;
+  display: grid;
+  grid-template-columns: 1.6rem 1fr;
+  column-gap: 0.6rem;
+}
+.next li::before {
+  content: counter(next);
+  grid-row: span 2;
+  color: var(--color-signal);
+  font: 700 1.9rem/1 var(--font-display);
+}
+.next strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.next span {
+  font-size: 0.98rem;
+}
+.aside__region {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+  .aside {
+    position: static;
+  }
+  /* Landscape crop when the photo spans the page, so it does not push the steps far down. */
+  .aside__photo {
+    aspect-ratio: 16 / 10;
+  }
+}
+@media (max-width: 520px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+  .tiles {
+    gap: 0.5rem;
+  }
+  .tile__name {
+    font-size: 0.85rem;
+  }
+}
+/* Narrow phones: one service per row, photo beside its name. */
+@media (max-width: 420px) {
+  .tiles {
+    grid-template-columns: 1fr;
+  }
+  .tile {
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .tile__name {
+    font-size: 1rem;
+  }
+}

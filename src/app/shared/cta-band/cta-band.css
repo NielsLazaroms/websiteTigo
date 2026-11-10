@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  padding: 0 var(--gutter) clamp(3.5rem, 7vw, 5.5rem);
+}
+/* A light rounded panel: the question on the left, Tigo at work on the right. */
+.cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  align-items: stretch;
+  max-width: calc(82rem - 2 * var(--gutter));
+  margin-inline: auto;
+  border-radius: var(--round-panel);
+  background: var(--color-soft);
+  overflow: hidden;
+}
+.cta__text {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 1.1rem;
+  padding: clamp(2.25rem, 5vw, 4.5rem);
+}
+.cta__text p {
+  max-width: 30rem;
+  font-size: 1.15rem;
+}
+.cta__text .btn-row {
+  margin-top: 0.5rem;
+}
+.cta__photo {
+  min-height: 19rem;
+  border-radius: 0;
+}
+.cta__photo img {
+  position: absolute;
+  inset: 0;
+  object-position: 50% 28%;
+}
+
+@media (max-width: 760px) {
+  .cta {
+    grid-template-columns: 1fr;
+  }
+  .cta__photo {
+    min-height: 15rem;
+  }
+}

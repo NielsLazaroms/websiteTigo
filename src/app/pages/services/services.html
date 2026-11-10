@@ -1,0 +1,45 @@
+<section class="page-head">
+  <div class="wrap page-head__inner">
+    <h1>Onze diensten</h1>
+    <p class="lede">
+      Schilderen, behangen en glas zetten. Los van elkaar of in één klus, zodat het kozijn, de ruit
+      en de wand ernaast in één keer af zijn.
+    </p>
+  </div>
+</section>
+
+<div class="wrap panels">
+  @for (service of services; track service.slug; let odd = $odd) {
+    <section
+      class="panel"
+      [class.panel--flip]="odd"
+      [attr.aria-labelledby]="'dienst-' + service.slug"
+      appReveal
+    >
+      <div class="panel__body">
+        <h2 [id]="'dienst-' + service.slug">{{ service.name }}</h2>
+        <p class="lede">{{ service.lede }}</p>
+        <ul class="panel__list">
+          @for (item of service.items; track item.title) {
+            <li>{{ item.title }}</li>
+          }
+        </ul>
+        <a class="btn" [routerLink]="['/diensten', service.slug]"
+          >Meer over {{ service.name.toLowerCase() }}</a
+        >
+      </div>
+
+      <a class="photo panel__photo" [routerLink]="['/diensten', service.slug]" tabindex="-1" aria-hidden="true">
+        <img
+          [appPhoto]="service.photos[0]"
+          [decorative]="true"
+          sizes="(max-width: 800px) 92vw, 42vw"
+          [attr.loading]="$first ? null : 'lazy'"
+          [attr.fetchpriority]="$first ? 'high' : null"
+        />
+      </a>
+    </section>
+  }
+</div>
+
+<app-cta-band />

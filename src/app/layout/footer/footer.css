@@ -1,0 +1,72 @@
+:host {
+  display: block;
+}
+
+/* One sentence on the left, the links in two columns,
+   and a single line of small print underneath. */
+.foot {
+  padding-block: clamp(2.75rem, 6vw, 4.5rem) 1.5rem;
+  border-top: 1px solid var(--color-plaster-deep);
+}
+.foot__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 2.5rem clamp(1.5rem, 5vw, 4rem);
+}
+
+/* ----------------------------------------------------------------- lead -- */
+.foot__say {
+  max-width: 20rem;
+  color: var(--color-ink);
+  font: 600 clamp(2rem, 3.4vw, 2.75rem) / 1 var(--font-display);
+  text-wrap: balance;
+}
+
+/* ---------------------------------------------------------------- links -- */
+.foot__title {
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+}
+.foot ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Same hover as the menu: a red underline grows out from the middle. */
+.foot nav a {
+  display: inline-block;
+  padding-block: 0.4rem;
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-signal), var(--color-signal));
+  background-repeat: no-repeat;
+  background-position: 50% calc(100% - 0.2rem);
+  background-size: 0 2px;
+  transition:
+    color 0.3s ease,
+    background-size 0.3s var(--ease-out);
+}
+.foot nav a:hover,
+.foot nav a:focus-visible {
+  color: var(--color-ink);
+  background-size: 100% 2px;
+}
+
+/* ----------------------------------------------------------------- base -- */
+.foot__base {
+  text-align: center;
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--color-plaster-deep);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 760px) {
+  .foot__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .foot__say {
+    grid-column: 1 / -1;
+  }
+}

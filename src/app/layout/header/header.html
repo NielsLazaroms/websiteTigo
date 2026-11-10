@@ -1,0 +1,67 @@
+<header class="bar" (keydown.escape)="open.set(false)">
+  <div class="wrap bar__inner">
+    <a class="brand" routerLink="/" (click)="closeAll()">
+      <img class="brand__mark" src="logo-mark.png" alt="" width="180" height="133" />
+      <span class="brand__name">
+        <span class="brand__title">Tigo Rutten</span>
+        <span class="brand__sub">Schilderwerken</span>
+      </span>
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-controls="hoofdmenu"
+      [attr.aria-expanded]="open()"
+      (click)="open.set(!open())"
+    >
+      {{ open() ? 'Sluiten' : 'Menu' }}
+    </button>
+
+    <nav id="hoofdmenu" class="nav" [class.nav--open]="open()" aria-label="Hoofdmenu">
+      <ul class="nav__list">
+        <li>
+          <a
+            class="nav__link"
+            routerLink="/"
+            routerLinkActive="is-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeAll()"
+            >Home</a
+          >
+        </li>
+        <li
+          class="nav__group"
+          [class.is-open]="dropdown()"
+          (mouseenter)="dropdown.set(true)"
+          (mouseleave)="dropdown.set(false)"
+          (focusin)="dropdown.set(true)"
+          (focusout)="closeIfLeaving($event)"
+          (keydown.escape)="dropdown.set(false)"
+        >
+          <a class="nav__link nav__link--more" routerLink="/diensten" routerLinkActive="is-active" (click)="closeAll()"
+            >Onze diensten</a
+          >
+          <div class="nav__drop">
+            <ul class="nav__sub">
+              @for (service of services; track service.slug) {
+                <li>
+                  <a [routerLink]="['/diensten', service.slug]" routerLinkActive="is-active" (click)="closeAll()">{{
+                    service.name
+                  }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a class="nav__link" routerLink="/projecten" routerLinkActive="is-active" (click)="closeAll()">Projecten</a>
+        </li>
+        <li>
+          <a class="nav__link" routerLink="/contact" routerLinkActive="is-active" (click)="closeAll()">Contact</a>
+        </li>
+        <li class="nav__cta"><a class="btn" routerLink="/contact" (click)="closeAll()">Offerte aanvragen</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

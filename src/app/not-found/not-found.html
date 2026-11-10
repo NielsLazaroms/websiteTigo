@@ -1,16 +1,6 @@
 <section class="page">
-  <header class="masthead">
-    <a class="wordmark" routerLink="/" data-rise="head" aria-label="Tigo Rutten Schilderwerken">
-      <img class="wordmark__mark" src="logo.png" alt="" />
-      <span class="wordmark__name">
-        <span class="wordmark__title">Tigo Rutten</span>
-        <span class="wordmark__sub">Schilderwerken</span>
-      </span>
-    </a>
-  </header>
-
-  <main class="hero">
-    <p class="eyebrow" data-rise="head">Fout 404 — pagina nog niet geschilderd</p>
+  <div class="hero">
+    <p class="eyebrow" data-rise="head">Fout 404: pagina niet gevonden</p>
 
     <div class="four04-wrap">
       <div class="four04" role="img" aria-label="Foutcode 404">
@@ -19,9 +9,8 @@
         <span class="four04__layer four04__layer--paint" aria-hidden="true">404</span>
 
         <span class="four04__drips" aria-hidden="true">
-          <!-- Anchored to real stroke bottoms: paired rivulets off the first 4-stem, hero drip off the 0, one off the second 4-stem. -->
+          <!-- Anchored to real stroke bottoms: one off the first 4, hero drip off the 0, one off the second 4-stem. -->
           <i class="four04__drip" style="left: 8%; --drip-h: 0.08em; --rise: 0.010em"></i>
-          <i class="four04__drip" style="left: 30.2%; --drip-h: 0.1em; --rise: 0.010em"></i>
           <i class="four04__drip" style="left: 50%; --drip-h: 0.11em; --rise: 0.435em"></i>
           <i class="four04__drip" style="left: 79%; --drip-h: 0.08em; --rise: 0.010em"></i>
         </span>
@@ -42,32 +31,13 @@
     </h1>
 
     <p class="lede" data-rise="body">
-      We zijn achter de schermen nog volop aan het schilderen. Kom binnenkort terug,
-      dan staat alles hier strak in de lak.
+      Deze pagina bestaat niet, of nog niet. Controleer het adres, of ga verder via een van de
+      pagina’s hieronder.
     </p>
 
-    <div class="actions" data-rise="body">
-      <a class="ghost-link" (click)="werk.scrollIntoView({ behavior: 'smooth' })" tabindex="0"
-        (keydown.enter)="werk.scrollIntoView({ behavior: 'smooth' })">
-        Bekijk recent werk
-        <span class="ghost-link__arrow" aria-hidden="true">↓</span>
-      </a>
+    <div class="actions btn-row" data-rise="body">
+      <a class="btn" routerLink="/">Naar de homepage</a>
+      <a class="btn btn--line" routerLink="/projecten">Bekijk projecten</a>
     </div>
-  </main>
-
-  <section class="strip" #werk aria-label="Recent werk van Tigo Rutten Schilderwerken">
-    <div class="strip__head">
-      <span class="strip__label">Recent werk</span>
-      <span class="strip__meta">wat er wél al af is</span>
-    </div>
-    <div class="strip__viewport">
-      <ul class="strip__track">
-        @for (shot of strip; track $index) {
-          <li class="card">
-            <img class="card__img" [src]="shot.src" [alt]="shot.alt" loading="lazy" />
-          </li>
-        }
-      </ul>
-    </div>
-  </section>
+  </div>
 </section>

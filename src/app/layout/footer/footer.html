@@ -1,0 +1,32 @@
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <p class="foot__say">Strak schilderwerk, binnen en buiten.</p>
+
+      <nav aria-label="Diensten">
+        <h2 class="foot__title">Diensten</h2>
+        <ul>
+          @for (service of services; track service.slug) {
+            <li>
+              <a [routerLink]="['/diensten', service.slug]">{{ service.name }}</a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label="Site">
+        <h2 class="foot__title">Site</h2>
+        <ul>
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/diensten">Onze diensten</a></li>
+          <li><a routerLink="/projecten">Projecten</a></li>
+          <li><a routerLink="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="foot__base">
+      <span>© {{ year }} {{ site.name }}{{ site.region ? ', ' + site.region : '' }}</span>
+    </div>
+  </div>
+</footer>

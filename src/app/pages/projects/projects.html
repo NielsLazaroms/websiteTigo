@@ -1,0 +1,56 @@
+<section class="page-head">
+  <div class="wrap page-head__inner">
+    <h1>Projecten</h1>
+    <p class="lede">
+      Werk dat we hebben opgeleverd. Bij een paar klussen hebben we ook de beginsituatie
+      gefotografeerd, zodat je ziet wat er is gebeurd.
+    </p>
+  </div>
+</section>
+
+<section class="band band--soft" aria-labelledby="voor-na">
+  <div class="wrap">
+    <div class="head" appReveal>
+      <h2 id="voor-na">Voor en na</h2>
+      <p>Sleep over een foto om de beginsituatie met het resultaat te vergelijken.</p>
+    </div>
+
+    <ul class="cases">
+      @for (item of cases; track item.title) {
+        <li appReveal [revealIndex]="$index">
+          <app-compare sizes="(max-width: 640px) calc(100vw - 2.5rem), 30vw" [priority]="$first" [before]="item.stages[0].photo" [after]="item.stages[item.stages.length - 1].photo" />
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.text }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="meer-werk">
+  <div class="wrap">
+    <div class="head" appReveal>
+      <h2 id="meer-werk">Meer opgeleverd werk</h2>
+    </div>
+    <ul class="wall">
+      @for (project of projects; track project.photo.src) {
+        <li appReveal [revealIndex]="$index % 3">
+          <figure>
+            <div class="photo">
+              <img
+                [appPhoto]="project.photo" sizes="(max-width: 480px) 92vw, (max-width: 800px) 46vw, 30vw"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              <strong>{{ project.title }}</strong>
+              <span>{{ project.service }}</span>
+            </figcaption>
+          </figure>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<app-cta-band />

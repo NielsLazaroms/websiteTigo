@@ -1,0 +1,83 @@
+:host {
+  display: block;
+}
+
+/* Each service is a row on the open page: text on one side, a large rounded
+   photo of the work on the other, as tall as the text. The sides swap from
+   row to row. No boxes around them; the only panel on the page is the
+   closing one.                                                             */
+.panels {
+  display: grid;
+  gap: clamp(3rem, 7vw, 5.5rem);
+  padding-bottom: clamp(4rem, 9vw, 7rem);
+}
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(2rem, 6vw, 5.5rem);
+  min-height: 26rem;
+}
+.panel__body {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 1.2rem;
+  padding-block: 1rem;
+}
+.panel__photo {
+  display: block;
+  min-height: 16rem;
+  border-radius: var(--round-panel);
+}
+/* Out of the flow, so the text sets the row's height and the photo fills it. */
+.panel__photo img {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.8s var(--ease-out);
+}
+.panel:hover .panel__photo img {
+  transform: scale(1.03);
+}
+.panel--flip .panel__photo {
+  order: -1;
+}
+
+/* What the service covers, as small grey labels. */
+.panel__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.panel__list li {
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: var(--color-soft);
+  color: var(--color-ink);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.panel__body .btn {
+  margin-top: 0.4rem;
+}
+
+@media (max-width: 800px) {
+  .panel {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    min-height: 0;
+  }
+  .panel__body {
+    padding-block: 0;
+  }
+  /* Photo on top on small screens, whichever side it is on when wide. */
+  .panel__photo,
+  .panel--flip .panel__photo {
+    order: -1;
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+  }
+}

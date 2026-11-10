@@ -1,0 +1,239 @@
+:host {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ head --
+   The service's own photos are upright, so the photo is too: the work is
+   shown whole instead of cropped to a wide strip.                          */
+.detail-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(2rem, 7vw, 6rem);
+}
+.detail-head .lede {
+  font-size: clamp(1.15rem, 1.7vw, 1.35rem);
+}
+.detail-head__photo {
+  aspect-ratio: 4 / 5;
+  max-height: 34rem;
+  justify-self: end;
+  width: 100%;
+  border-radius: var(--round-panel);
+}
+/* Rolled on from the left when the page opens: a white cover slides off, so
+   the photo underneath is painted from the first frame. */
+.detail-head__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform-origin: right;
+  animation: detail-uncover 1.1s var(--ease-out) 0.15s both;
+}
+@keyframes detail-uncover {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* ----------------------------------------------------------- wat we doen --
+   One row per part of the service, its name large on the left and the
+   explanation beside it. The photo beside the list is exactly as tall as the
+   heading and list together, so neither column leaves a gap.               */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: stretch;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+.split h2 {
+  margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+.split__photo {
+  min-height: 22rem;
+  border-radius: var(--round-panel);
+}
+/* Photo on the left: the page then alternates sides from section to section. */
+.split--flip {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+.split--flip .split__photo {
+  order: -1;
+}
+/* Out of the flow, so the list sets the height and the photo fills it. */
+.split__photo img {
+  position: absolute;
+  inset: 0;
+}
+.rows {
+  margin: 0;
+  border-top: 1px solid #cfcfcf;
+}
+.rows > div {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: baseline;
+  gap: 0.4rem clamp(1.25rem, 3vw, 2.5rem);
+  padding-block: clamp(1.15rem, 2vw, 1.5rem);
+  border-bottom: 1px solid #cfcfcf;
+}
+.rows dt {
+  color: var(--color-ink);
+  font: 600 clamp(1.4rem, 1.9vw, 1.65rem) / 1.1 var(--font-display);
+}
+.rows dd {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* ------------------------------------------------------------ voor en na --
+   The job's name is the heading; the slider takes the larger share of the row. */
+.proof {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5.5rem);
+}
+.proof__text {
+  display: grid;
+  justify-items: start;
+  gap: 1.1rem;
+}
+.proof__kicker {
+  color: var(--color-signal);
+  font: 600 1.35rem/1 var(--font-display);
+}
+.proof__text .btn {
+  margin-top: 0.4rem;
+}
+.proof__slider {
+  --compare-ratio: 5 / 4;
+}
+.proof__slider--wide {
+  --compare-ratio: 4 / 3;
+}
+
+/* ---------------------------------------------------------------- vragen --
+   Heading on the left, the questions in a wider column on the right.       */
+.questions {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  align-items: start;
+  gap: clamp(1.5rem, 6vw, 5.5rem);
+}
+.questions__head {
+  display: grid;
+  gap: 1rem;
+  position: sticky;
+  top: 6.5rem;
+}
+.questions .faq {
+  max-width: none;
+}
+.questions .faq summary {
+  padding-block: 1.35rem;
+  font-size: 1.2rem;
+}
+
+/* -------------------------------------------------------- other services --
+   Two wide link rows: thumbnail, name and one line, and an arrow that
+   slides when you point at the row.                                        */
+.others {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.other {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.25rem;
+  height: 100%;
+  padding: 0.85rem 1.4rem 0.85rem 0.85rem;
+  border-radius: var(--round-panel);
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s var(--ease-out);
+}
+.other:hover {
+  box-shadow: 0 18px 36px -22px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+.other__photo {
+  aspect-ratio: 1;
+  border-radius: 1.1rem;
+}
+.other__text {
+  display: grid;
+  gap: 0.3rem;
+}
+.other__name {
+  color: var(--color-ink);
+  font: 600 1.9rem/1 var(--font-display);
+}
+.other__go svg {
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: none;
+  stroke: var(--color-signal);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.25s var(--ease-out);
+}
+.other:hover .other__go svg {
+  transform: translateX(0.35rem);
+}
+
+@media (max-width: 860px) {
+  .detail-head,
+  .split,
+  .proof,
+  .questions,
+  .others {
+    grid-template-columns: 1fr;
+  }
+  .detail-head__photo {
+    aspect-ratio: 4 / 3;
+    max-height: none;
+  }
+  .split__photo {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+  .split--flip .split__photo {
+    order: 0;
+  }
+  .questions__head {
+    position: static;
+  }
+  .proof__slider {
+    --compare-ratio: 1 / 1;
+  }
+  .proof__slider--wide {
+    --compare-ratio: 4 / 3;
+  }
+}
+@media (max-width: 560px) {
+  .rows > div {
+    grid-template-columns: 1fr;
+  }
+  .other {
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    padding-right: 1rem;
+  }
+  .other__go {
+    display: none;
+  }
+}

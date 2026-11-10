@@ -4,43 +4,94 @@
    its components rely on are generated into the final stylesheet. */
 @source '../node_modules/mn-angular-lib';
 
+/* Barlow and Barlow Condensed (SIL Open Font License, see public/fonts/LICENSE.txt),
+   Latin subset, served from this site so no other host is contacted. Each
+   family ships two weights; the in-between weights in the CSS resolve to these. */
+@font-face {
+  font-family: 'Barlow';
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/barlow-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-weight: 600 700;
+  font-display: swap;
+  src: url('/fonts/barlow-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-weight: 500 600;
+  font-display: swap;
+  src: url('/fonts/barlow-condensed-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/barlow-condensed-latin-700-normal.woff2') format('woff2');
+}
+
+/* Stand-ins used until the web fonts have loaded: Arial, scaled to the same
+   average letter width as Barlow (measured), so lines break in the same places. */
+@font-face {
+  font-family: 'Barlow Condensed Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Arial');
+  size-adjust: 74.5%;
+}
+@font-face {
+  font-family: 'Barlow Fallback';
+  src: local('Arial'), local('ArialMT');
+  size-adjust: 96.5%;
+}
+
 @theme {
-  /* --- Jobsite palette, pulled straight off Tigo's work ---------------------
-     plaster : raw un-painted wall (page base)
-     signal  : the brand red from the TR brush logo (the "fresh coat")
-     tape    : painter's masking-tape ochre
-     ink     : the anthracite the doors get painted
-     primer  : clean painter's white                                          */
-  --color-plaster: #e8e1d3;
-  --color-plaster-deep: #dcd3c1;
-  --color-signal: #e0362a;
-  --color-signal-deep: #c22a20;
-  --color-tape: #e9a400;
-  --color-ink: #212429;
-  --color-ink-soft: #2c3037;
-  --color-primer: #f7f4ec;
+  /* --- Palette: the logo, and nothing else -----------------------------------
+     White page, black type, the red of the brush in the TR logo. The photos of
+     the work bring the colour. (Token names date from the first 404 design.)  */
+  --color-plaster: #ffffff; /* page */
+  --color-plaster-deep: #dedede; /* hairlines */
+  --color-soft: #f4f4f4; /* alternate band */
+  --color-signal: #e3161a; /* logo red */
+  --color-signal-deep: #c01216;
+  --color-ink: #000000; /* logo black: headings */
+  --color-ink-soft: #2b2b2b; /* body text */
+  --color-primer: #ffffff;
 
   /* mn-angular-lib styles its components with `primary-*` tokens (default
      purple). Alias them to the brand red so its button/badge render on-brand. */
   --color-primary: var(--color-signal);
-  --color-primary-50: #fbeae8;
-  --color-primary-100: #f6cdc9;
-  --color-primary-200: #eea59d;
-  --color-primary-300: #e77d72;
-  --color-primary-400: #e35a4c;
+  --color-primary-50: #fdeaea;
+  --color-primary-100: #f9c9ca;
+  --color-primary-200: #f29a9c;
+  --color-primary-300: #ec6c6f;
+  --color-primary-400: #e74145;
   --color-primary-500: var(--color-signal);
   --color-primary-600: var(--color-signal-deep);
-  --color-primary-700: #a3241b;
-  --color-primary-800: #831d16;
-  --color-primary-900: #631610;
-  --color-primary-content: var(--color-primer);
+  --color-primary-700: #9c0f12;
+  --color-primary-800: #780b0e;
+  --color-primary-900: #54080a;
+  --color-primary-content: #ffffff;
 
-  --color-base-100: var(--color-primer);
+  --color-base-100: #ffffff;
   --color-base-content: var(--color-ink);
 
-  --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'Space Mono', ui-monospace, monospace;
+  /* Barlow Condensed is close to the lettering in the logo; Barlow is its text cut. */
+  --font-display: 'Barlow Condensed', 'Barlow Condensed Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Barlow', 'Barlow Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Barlow Condensed', 'Barlow Condensed Fallback', ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --measure: 36rem;
+  /* Corners are rounded everywhere, larger on larger things. */
+  --round-photo: 1.25rem;
+  --round-panel: 1.75rem;
+  --round-field: 0.75rem;
+  --ease-out: cubic-bezier(0.22, 0.8, 0.24, 1);
+  /* Lets the FAQ answers animate to their natural height. */
+  interpolate-size: allow-keywords;
 }
 
 html,
@@ -51,7 +102,459 @@ body {
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background: var(--color-plaster);
-  color: var(--color-ink);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  background: #fff;
+  color: var(--color-ink-soft);
   -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+h1 {
+  font-size: clamp(3rem, 6.2vw, 5.4rem);
+  line-height: 0.95;
+}
+h2 {
+  font-size: clamp(2.3rem, 4vw, 3.5rem);
+}
+h3 {
+  font-size: 1.75rem;
+  line-height: 1.05;
+}
+h1,
+h2,
+h3 {
+  overflow-wrap: break-word;
+}
+@media (max-width: 400px) {
+  h1 {
+    font-size: 2.6rem;
+  }
+  h2 {
+    font-size: 2.1rem;
+  }
+}
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 0.4rem;
+}
+.on-dark :focus-visible {
+  outline-color: #fff;
+}
+
+/* ======================================================================
+   Shared page furniture. Component stylesheets only add what is specific
+   to one page; anything used on two or more pages lives here.
+   ====================================================================== */
+
+.wrap {
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.band {
+  padding-block: clamp(4rem, 9vw, 7rem);
+}
+.band--soft {
+  background: var(--color-soft);
+}
+
+/* Section heading, with an optional intro or link pushed to the right. */
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem 3rem;
+  margin-bottom: clamp(2rem, 4vw, 2.75rem);
+}
+.head p {
+  max-width: 30rem;
+}
+.lede {
+  font-size: clamp(1.15rem, 1.6vw, 1.25rem);
+  max-width: var(--measure);
+}
+
+/* ------------------------------------------------------------- buttons -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.1rem;
+  padding: 0 1.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-signal);
+  color: #fff;
+  font: 600 1.05rem/1 var(--font-sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s var(--ease-out);
+}
+.btn:hover {
+  background: var(--color-signal-deep);
+  transform: translateY(-2px);
+}
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+.btn--line {
+  background: none;
+  color: var(--color-ink);
+  box-shadow: inset 0 0 0 2px var(--color-ink);
+}
+.btn--line:hover {
+  background: var(--color-ink);
+  color: #fff;
+}
+.on-dark .btn--line {
+  color: #fff;
+  box-shadow: inset 0 0 0 2px #fff;
+}
+.on-dark .btn--line:hover {
+  background: #fff;
+  color: var(--color-ink);
+}
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+/* Text link with a red line under it. On hover the text takes the same red
+   and the line gets a little heavier. It also reacts when the card it sits
+   in is hovered. */
+.more {
+  justify-self: start;
+  padding-bottom: 0.2rem;
+  color: var(--color-ink);
+  font-weight: 600;
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-signal), var(--color-signal));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
+  transition:
+    background-size 0.2s ease,
+    color 0.2s ease;
+}
+.more:hover,
+.more:focus-visible,
+a:hover > .more,
+a:focus-visible > .more {
+  color: var(--color-signal);
+  background-size: 100% 3px;
+}
+
+/* --------------------------------------------------------------- photos -- */
+.photo {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--round-photo);
+  background: var(--color-soft);
+}
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* A label set into the corner of a photo. */
+.photo__tag {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* -------------------------------------------------------- service cards -- */
+.service-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.service-card {
+  display: grid;
+  gap: 0.9rem;
+  text-decoration: none;
+  color: inherit;
+}
+.service-card .photo {
+  aspect-ratio: 4 / 5;
+}
+.service-card .photo img {
+  transition: transform 0.7s var(--ease-out);
+}
+.service-card:hover .photo img {
+  transform: scale(1.04);
+}
+.service-card h3 {
+  padding-top: 0.4rem;
+}
+/* Phones: photo on the left, text beside it, so three services fit in view. */
+@media (max-width: 640px) {
+  .service-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .service-card {
+    grid-template-columns: 38% minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
+    column-gap: 1rem;
+    row-gap: 0.4rem;
+  }
+  .service-card .photo {
+    grid-row: 1 / span 3;
+  }
+  .service-card h3 {
+    padding-top: 0;
+  }
+  .service-card .more {
+    align-self: start;
+  }
+}
+
+/* ---------------------------------------------------------- page header -- */
+.page-head {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+}
+.page-head__inner {
+  display: grid;
+  gap: 1.3rem;
+}
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+}
+.crumbs li + li::before {
+  content: '/';
+  margin-right: 0.45rem;
+  color: var(--color-signal);
+}
+.crumbs a {
+  color: inherit;
+}
+
+/* ---------------------------------------------------------------- steps -- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+.steps li {
+  position: relative;
+  counter-increment: step;
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+}
+/* The steps are a sequence: a line runs from each number to the next. */
+.steps li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  left: 3.25rem;
+  right: -1rem;
+  height: 1px;
+  background: #c9c9c9;
+}
+@media (max-width: 900px) {
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .steps li:not(:last-child)::after {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .steps li {
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    column-gap: 0.5rem;
+  }
+  .steps li::before {
+    grid-row: span 2;
+    font-size: 3.2rem;
+  }
+}
+.steps li::before {
+  content: counter(step);
+  font: 700 4rem/1 var(--font-display);
+  color: var(--color-signal);
+}
+
+/* ------------------------------------------------------------------ faq -- */
+.faq {
+  max-width: 48rem;
+  border-top: 1px solid var(--color-plaster-deep);
+}
+.faq details {
+  border-bottom: 1px solid var(--color-plaster-deep);
+}
+.faq summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 0;
+  color: var(--color-ink);
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+.faq summary::after {
+  content: '+';
+  flex: none;
+  font: 600 1.8rem/0.8 var(--font-display);
+  color: var(--color-signal);
+  transition: transform 0.3s var(--ease-out);
+}
+.faq details[open] summary::after {
+  transform: rotate(45deg);
+}
+.faq details::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 0.35s var(--ease-out),
+    content-visibility 0.35s allow-discrete;
+}
+.faq details[open]::details-content {
+  block-size: auto;
+}
+.faq details p {
+  max-width: var(--measure);
+  padding-bottom: 1.3rem;
+}
+
+
+/* Space between the last band and the closing panel. */
+.band--soft + app-cta-band {
+  padding-top: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+/* In-page links land below the sticky header. */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* ======================================================================
+   Motion
+   ====================================================================== */
+
+/* Scroll reveals (see shared/reveal.ts). The directive sets data-reveal and
+   --reveal-i, and holds .reveal-pending until the element scrolls into view. */
+[data-reveal] {
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out),
+    clip-path 0.9s var(--ease-out);
+  transition-delay: calc(var(--reveal-i, 0) * 90ms);
+}
+[data-reveal='wipe'] {
+  clip-path: inset(0);
+}
+.reveal-pending[data-reveal='rise'] {
+  opacity: 0;
+  transform: translateY(1.75rem);
+}
+.reveal-pending[data-reveal='wipe'] {
+  clip-path: inset(0 100% 0 0);
+}
+
+/* Page load: the title block of every inner page rises into place. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+.page-head__inner > * {
+  animation: rise-in 0.8s var(--ease-out) both;
+}
+.page-head__inner > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+.page-head__inner > :nth-child(3) {
+  animation-delay: 0.16s;
+}
+.page-head__inner > :nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+/* Moving between pages: the new page fades in under the header. Plain CSS on
+   the element the router inserts, so it never holds up navigation. */
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+}
+#inhoud > :not(router-outlet) {
+  animation: page-in 0.35s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}
+
+/* While the full-screen phone menu is open, the page behind it stays put.
+   Above the menu's breakpoint the class has no effect. */
+@media (max-width: 1020px) {
+  html.menu-open {
+    overflow: hidden;
+  }
 }

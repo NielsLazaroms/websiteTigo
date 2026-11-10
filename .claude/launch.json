@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "website-tigo",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start"],
+      "port": 4800
+    }
+  ]
+}

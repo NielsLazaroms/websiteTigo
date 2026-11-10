@@ -1,0 +1,171 @@
+:host {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ hero --
+   Headline on the left, two photos of finished work on the right: a large
+   one with a smaller one resting on its corner.                             */
+.hero {
+  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(1rem, 3vw, 2.5rem);
+}
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+.hero__copy {
+  display: grid;
+  justify-items: start;
+  gap: 1.5rem;
+}
+
+/* Page-load sequence, played once: the text rises in, the large photo is
+   rolled on from the left, the small photo settles onto its corner, and the
+   brush stroke is painted under the headline last.                         */
+.hero__copy > * {
+  animation: hero-rise 0.9s var(--ease-out) both;
+}
+.hero__copy > :nth-child(2) {
+  animation-delay: 0.1s;
+}
+.hero__copy > :nth-child(3) {
+  animation-delay: 0.2s;
+}
+/* The photo itself is painted at once (good for loading speed); a white cover
+   slides off it to give the rolled-on look. */
+.hero__main::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform-origin: right;
+  animation: hero-uncover 1.1s var(--ease-out) 0.15s both;
+}
+.hero__main img {
+  animation: hero-settle 1.8s var(--ease-out) 0.15s both;
+}
+.hero__inset {
+  animation: hero-pop 0.8s var(--ease-out) 0.75s both;
+}
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.75rem);
+  }
+}
+@keyframes hero-uncover {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+@keyframes hero-settle {
+  from {
+    transform: scale(1.12);
+  }
+}
+@keyframes hero-pop {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.92);
+  }
+}
+/* One brush stroke under the headline, painted once when the page loads. */
+.hero__stroke {
+  display: block;
+  width: min(15rem, 70%);
+  height: 0.85rem;
+  margin-top: 0.6rem;
+  fill: var(--color-signal);
+  animation: paint 0.8s cubic-bezier(0.6, 0, 0.3, 1) 0.9s both;
+}
+@keyframes paint {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+.hero__photos {
+  position: relative;
+  padding: 0 0 3.5rem 3rem;
+}
+.hero__main {
+  aspect-ratio: 5 / 4;
+  border-radius: var(--round-panel);
+}
+.hero__inset {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 34%;
+  aspect-ratio: 3 / 4;
+  /* A white edge lifts it off the photo behind. */
+  box-shadow: 0 0 0 6px #fff;
+}
+
+/* ------------------------------------------------------------ voor en na -- */
+.before-after {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5.5rem);
+}
+.before-after__slider {
+  /* Square here, so the photo can be large without making the band very tall. */
+  --compare-ratio: 1 / 1;
+}
+.before-after__text {
+  display: grid;
+  justify-items: start;
+  gap: 1.3rem;
+}
+
+/* ---------------------------------------------------------------- mosaic -- */
+.mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 15rem;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mosaic .photo {
+  height: 100%;
+}
+.mosaic__tall {
+  grid-row: span 2;
+}
+.mosaic__wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 900px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+  }
+  .hero__photos {
+    padding: 0 0 2.5rem 1.75rem;
+  }
+  /* Two tidy columns: the upright photos side by side, the wide one across. */
+  .mosaic {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: clamp(9rem, 26vw, 13rem);
+    grid-auto-flow: dense;
+  }
+}
+@media (max-width: 700px) {
+  .before-after {
+    grid-template-columns: 1fr;
+  }
+  .before-after__slider {
+    max-width: 28rem;
+  }
+}
+
